@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1 Code #{err.status}: Internal Server Error
+  h2 #{err.message}
+  // h2 Error Stack:
+  // pre #{err.stack}
+  a(href='/') Home

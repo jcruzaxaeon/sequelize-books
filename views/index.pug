@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1 Books 
+  a(href='/books/new') Create a New Book
+  //- p Welcome to #{title}
+  table 
+    thead 
+      tr 
+        th Title 
+        th Author 
+        th Genre 
+        th Year 
+    tbody
+      each book in books  
+        tr 
+          td 
+            a(href=`/books/${book.dataValues.id}`) #{book.dataValues.title}
+          td #{book.dataValues.author}
+          td #{book.dataValues.genre}
+          td #{book.dataValues.year}

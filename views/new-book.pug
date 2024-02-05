@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  
+  //- see: "./routes/index.js"
+  //- at: `router.post('/books/new', `
+  h1 Add a New Book
+  form(method="post")
+
+    //- Form Error Messages
+    h2(class="error") #{errorHeading}
+    ul(class="error")
+      li #{errorNoTitle}
+      li #{errorNoAuthor}
+    
+    //- Form Inputs
+    //- Shows data entered on error-render
+    p 
+      label(for="title") Title 
+      if data
+        input(name="title" type="text" id="title" value=data.title)
+      else
+        input(name="title" type="text" id="title") 
+    p 
+      label(for="author") Author 
+      if data
+        input(name="author" type="text" id="author" value=data.author)
+      else
+        input(name="author" type="text" id="author") 
+    p 
+      label(for="genre") Genre 
+      if data
+        input(name="genre" type="text" id="genre" value=data.genre)
+      else
+        input(name="genre" type="text" id="genre") 
+    p 
+      label(for="year") Year 
+      if data
+        input(name="year" type="text" id="year" value=data.year)
+      else
+        input(name="year" type="text" id="year") 
+    p 
+      input(type="submit" value="Create New Book")
+    p 
+      a(class="button" href="/") Cancel
