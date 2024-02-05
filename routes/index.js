@@ -3,6 +3,7 @@
 // "./routes/index.js"
 
 var express = require('express');
+const createHttpError = require('http-errors');
 var router = express.Router();
 const Book = require('../models/index.js').Book;
 
@@ -54,11 +55,13 @@ router.post('/books/new', asyncHandler( async (req, res) => {
 }));
 
 // GET - Show update form
-router.get('/books/:id', asyncHandler( async (req, res) => {
+router.get('/books/:id', asyncHandler( async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   if(book) {
     res.render('update-book', {book});
-  } else { res.sendStatus(404); }
+  } else { 
+    next( createHttpError(404, "Cannot find requested book.") );
+  }
 }));
 
 // POST - Submit update form
@@ -89,7 +92,10 @@ router.post('/books/:id/delete', asyncHandler( async (req, res) => {
   if(book) {
     await book.destroy();
     res.redirect('/');
-  } else { res.sendStatus(404); }
+  } else { 
+    // res.sendStatus(404);
+    next( createHttpError(404, "Error occurred attempting deletion.") );
+  }
 }));
 
 module.exports = router;
